@@ -37,7 +37,7 @@
       function popup(d){
           console.log(d);
           if(d.Year < 2003){
-            alert("No Delay Type Data for Years Before 2003.")
+            alert("No delay type data for any airport for years before 2003.")
           }
           else{
             chart_delays(d);
@@ -79,10 +79,12 @@
 
         //add h1 element with link to FAA delay type info
         d3.select("#airportBarTitle").append("h1")
+          .html(data.Airport + " " + data.Year + " ")
           .append("a")
           .attr("href","http://aspmhelp.faa.gov/index.php/Types_of_Delay")
           .attr("target","_blank")
-          .html(data.Airport + " " + data.Year + " Delays by Category");
+          //.html(data.Airport + " " + data.Year + " Delays by Category");
+          .html("Delays by Category");
 
         x.domain(cats);
         y.domain([0,d3.max(vals)]);
@@ -112,8 +114,11 @@
            //.call(d3.axisLeft(y));  //THIS IS for d3.v4
       }
 
+      // modeled from the udacity world-cup example.  Takes in data from
+      // a csv file and draws the data on a map.
       function plot_points(data) {
 
+           // agg_years aggregates all airports and their data into one year
            function agg_years(leaves) {
              return leaves.map(function(d){
                return {
@@ -138,6 +143,8 @@
              });
            }
 
+          // structure (nest) the data so that we can perform
+          // a "groupby" on the data with the key "year"
           var nested = d3.nest()
                          .key(function(d) {
                            return d["Year"];
@@ -155,26 +162,31 @@
           // the maxFlight for each year, but it appears to be over all years
           //console.log("MAXFLIGHT:" +maxFlight);
 
+          // return the maximum delay
           var maxDelay = d3.max(nested,function(d){
             return d3.max(d['values'],function(d){
               return d['PercentDelayed'];
             })
           });
 
+          // return the minimum delay
           var minDelay = d3.min(nested,function(d){
             return d3.min(d['values'],function(d){
               return d['PercentDelayed'];
             })
           });
 
+          // determine the radius of a circle by the max delay
           var radius = d3.scale.sqrt()
                          .domain([0,maxDelay])
                          .range([0,12]);
 
+          // create a scale for colors
           var colorFill = d3.scale.linear()
           					.domain([minDelay,maxDelay])
           					.range(["lawngreen", "red"]);
 
+          // create opacity levels
           var opacityFill = d3.scale.linear()
                                  .domain([0,maxDelay])
                                  .range([0,1]);
@@ -307,7 +319,7 @@
                   update(d);
               })
             }
-          },1200) //1200
+          },1500) //1200
       };
 
       // D3 to load in the csv file
