@@ -24,6 +24,24 @@ A barchart was added to the visualization so that the categories of delays could
 by users when they click on any airport (this data is only available for years after 2003).
 
 Feedback:
+Reviewer #1:
+The animation occurs too fast.
+RESPONSE: Increased the delay between updates.
+The link to the delay category definitions is not obvious.
+RESPONSE: Changed the link from the entire chart title to only the "Delays by Category".
+The pop-up dialog indicates no category data prior to 2003, but it is unclear if it was specific to 
+a particular airport or all airports.
+RESPONSE: Changed the dialog to indicate all airports.
+
+Reviewer #2:
+Nothing in visualization provides info on units.  Are these the number flights,
+number of delays, or what?
+RESPONSE: Added sub-title to indicate that we are looking at the percentage of flights delayed
+
+Reviewer #3:
+The link to the delay category definitions is not obvious.
+RESPONSE: Changed the link from the entire chart title to only the "Delays by Category".
+It would be nice to zoom into the map in areas where airports exist in close proximity to another.
 
 
 Resources:
