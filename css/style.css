@@ -16,6 +16,41 @@ body {
   color:white;
   background-color: black;
   padding : 5px 15px;
+  min-height: 800px;
+}
+
+#airportBar{
+  padding-left: 0;
+  padding-right:0;
+}
+
+#airportBar > p{
+  text-align:right;
+}
+
+.svg-container{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 50%; /* aspect ratio */
+  vertical-align: bottom;
+  overflow: hidden;
+}
+
+.svg-container-bar{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 0%; /* aspect ratio */
+  vertical-align: bottom;
+  overflow: hidden;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* Style for Custom Tooltip */
@@ -62,6 +97,12 @@ div.years_buttons div {
   fill: white;
   font-family: sans-serif;
   font-size: 11px;
+}
+
+.legend > rect {
+  fill:white;
+  stroke:black;
+  opacity: 1;;
 }
 
 #devResponse{
