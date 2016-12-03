@@ -9,187 +9,211 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <!--D3 CDN-->
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <!--colorbar-->
   <script src="js/colorbar.js"></script>
+  <!--d3.legend.js from Z. Jonsson-->
+  <script src="js/d3.legend.js"></script>
   <!--Developed JS (if needed)-->
 
   <!--Developed CSS-->
   <link rel="stylesheet" href="css/style.css">
-
-  <!--<div class="container-fluid" id="tabbed">
-    <ul class="nav nav-pills nav-justified">
-      <li class="active"><a href="#airport" data-toggle="tab">Airports</a></li>
-      <li><a href="#carrier" data-toggle="tab">Carriers</a></li>
-    </ul>
-    <div class="tab-content clearfix">
-      <div class="tab-pane active"
-      </div>
-    </div>
-  </div>-->
-
 </head>
 <body>
   <div class="container-fluid">
-  	<div class="row" id="airport">
+  	<div class="row">
       <h1 id="airportTitle">Delayed Flights by Airport</h1>
       <h3>Percentage of Flights Delayed</h3>
-      <div class="row">
-        <div class="col-xs-1" id="buttonColumn"></div>
-        <div class="col-xs-2" id="emptyColumn"></div>
-        <div class="col-xs-9" id="airportChart"></div>
-        <!--<div class="col-xs-2" id="emptyColumn"></div>-->
-      </div>
-      <div class="row">
-        <div class="col-xs-12" id="airportBarTitle"></div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3" id="emptyColumn"></div>
-        <div class="col-xs-6" id="airportBar"></div>
-        <div class="col-xs-3" id="emptyColumn"></div>
-      </div>
-      <script src="js/airports.js"></script>
+      <div id="selectHolder"></div>
     </div>
+    <div class="row" id="airport">
+      <div class="col-xs-9" id="airportChart"></div>
+      <div class="col-xs-3" id="airportBar">
+        <div id="airportBarTitle"></div>
+      </div>
+    </div>
+    <div class="row" id="charts">
+      <div class="col-xs-12" id="airportLine">
+        <div id="airportLineTitle"></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/airports.js"></script>
+  <div class="container-fluid" id="tabbed">
     <div class="row">
-      <div class="col-xs-12" id="emptyColumn"></div>
-    </div>
-  </div>
-    <div class="container-fluid" id="tabbed">
-      <ul class="nav nav-pills nav-justified">
-        <li><a href="#Project" data-toggle="tab">Project</a></li>
-        <li><a href="#Design" data-toggle="tab">Design</a></li>
-        <li><a href="#Data" data-toggle="tab">Data</a></li>
-        <li><a href="#Feedback" data-toggle="tab">Feedback</a></li>
-        <li><a href="#Sources" data-toggle="tab">Sources</a></li>
-      </ul>
-      <div class="tab-content clearfix">
-	  	  <div class="tab-pane" id="Project">
-          <h1 id="ProjectTitle">Udacity Data Analyst Nanodegree Project 6: Data Visualization</h1>
-          <h4>Overview:</h4>
-          <p id="ProjOverview">
-            Utilizing d3.js, create a data visualization from a data set that tells a story or highlights trends in the data.
-          </p>
-          <br>
-          <h4>Summary:</h4>
-          <p id="summary">
-          For this project, I chose to create a data visualization of Airline
-          On-Time Statistics and Delay Causes (see Sources for link).  Using the available
-          Total Flights and Delayed Flights statistics for each airport, a Percent Delayed field
-          was created in the data so that airports can be compared by the percentage of the delayed
-          flights they have.
-          </p>
-          <br>
-          <h4>Observed Trends:</h4>
-          <p id="trends">
-            A large trend visible in the animation is the rise of flight delays across most airports
-            up until 2002, and then another trend in rising delays until 2008.  These two years are
-            significant; 2002 followed just three months after the 9/11 terrorist attack where hijackers
-            took over 4 planes in the Mid-Atlantic, and 2008 was the beginning of the Great Recession.<br><br>
-            Another visible trend in the data is that as new airports (airports not present in previous years)
-            start to appear, their delays start to follow the rise in delays seen in the existing airports.
-            This could be due to the decrease in direct flights, which causes flights to lay-over at other
-            airports where connections are (hopefully) made for the final destination.
-          </p>
-        </div>
-        <div class="tab-pane" id="Design">
-          <h4>Design Choices:</h4>
-          <p>
-            The selected data all generates from the United States.  Therefore, I chose a map of only
-            the United States, and used the AlbersUSA projection so that Hawaii and Alaska would appear
-            closer to the continental states.
-          </p>
-          <br>
-          <p>
-            Airports are designated on the map as circles, since we have the latitude and longitude of
-            the airports.  The size and color of each circle is then mapped to the percent of delayed
-            flights for each airport.
-          </p>
-          <br>
-          <p>
-            A colorbar was added to assist viewers in identifying the
-            scale used for delayed flights: the closer to green the lower the percentge of delays,
-            and the closer to red the higher the percentage of delays.
-          </p>
-          <br>
-          <p>
-            A barchart was added to the visualization so that the categories of delays could be investigated
-            by users when they click on any airport (this data is only available for years after 2003).
-          </p>
-        </div>
-        <div class="tab-pane" id="Data">
-          <h4 id="DataSelection">Data Set Selection:</h4>
-          <p id="DataSelectOverview">
-            Airline reported data from 1987 through September 2016 was used in this project.
-            The data for years 1987 - 2008 were already available for download (see Sources),
-            and the remaining years (2009 - 2016) were downloaded from the USDOT Bureau of
-            Transportation Statistics website (see Sources).  These files were downloaded for
-            each month of the remaining years.  Note that webscraping was not utilized for
-            downloading the data, but perhaps could have been a useful tool for this portion
-            of the process.
-          </p>
-          <br>
-          <h4 id="DataWrangling">Data Wrangling:</h4>
-          <p id="DataWrangleOverview">
-            As mentioned, data for the years 1987-2008 were available for download.  These
-            compressed csv files were already sorted by year.  Using the columns from the
-            downloaded files, the remaining years were downloaded from the web interface by month.
-            Once all reamining files were downloaded, they were separated into directories by year, and
-            all months available for a given year were concatenated into one file for that year.
-            This was completed utilizing the pandas library from the Python interpreter.  A python
-            script was created to read in all the available datafiles (available in the repo under Code).
-            This script groups the input files by Flight Origin, and creates counts for the individual
-            delay types and total number of flights and delays for each Origin of every available year.
-            Since the original data had statistics for every airport in the US, the data was filtered to
-            contain only airports whose Total Flights were above the 3rd quartile of Total Flights for
-            that year.  The data also included airports that were not in U.S. states (though they were U.S Territories),
-            so they were also removed from the data to help simplify the map in the visualization.
-            This output was saved to one csv file, and it is available in the repo under data (aggregatedAirportData.csv).
-            Note that due to the size of all data files, the source data was not submitted to the repo.
-          </p>
-        </div>
-        <div class="tab-pane" id="Feedback">
-          <p id="devResponse">Developer responses to feedback in red.</p>
-          <h4 id="viewerFeedback">Reviewer #1:</h4>
-          <p>The animation occurs too fast.</p>
-          <p id="devResponse">Increased the delay between updates.</p>
-          <p>The link to the delay category definitions is not obvious.</p>
-          <p id="devResponse">Changed the link from the entire chart title to only the "Delays by Category".</p>
-          <p> The pop-up dialog indicates no category data prior to 2003, but it is unclear if it was specific to a particular airport or all airports.</p>
-          <p id="devResponse">Changed the dialog to indicate all airports.</p>
-          <br>
-          <h4 id="viewerFeedback">Reviewer #2:</h4>
-          <p>Nothing in visualization provides info on units.  Are these the number flights,
-          number of delays, or what?
-          </p>
-          <p id="devResponse">Added sub-title to indicate that we are looking at the percentage of flights delayed</p>
-          <br>
-          <h4 id="viewerFeedback">Reviewer #3:</h4>
-          <p>The link to the delay category definitions is not obvious.</p>
-          <p id="devResponse">Changed the link from the entire chart title to only the "Delays by Category".</p>
-          <p> It would be nice to zoom into the map in areas where airports exist in close proximity to another.</p>
-          <br>
-        </div>
-        <div class="tab-pane" id="Sources">
-          <h4>References Used:</h4>
-          <p>Bar Chart: <a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart" target="_blank">Scott Murray - Making a bar chart.</a>
-          </p>
-          <p>Tooltips on mouse hover: <a href="http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922" target="_blank">Michelle Chandra</a></p>
-          <br>
-          <h4>Data Sources:</h4>
-          <p>Data for years 1987 - 2008: <a href="http://stat-computing.org/dataexpo/2009/the-data.html" target="_blank">American Statistical Association</a></p>
-          <p>Data for years 2009 - 2016: <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236&DB_Short_Name=On-Time" target="_blank">USDOT Bureau of Transportation Statistics</a></p>
-          <br>
-          <h4>Code Sources:</h4>
-          <p>Colorbar: <a href="https://github.com/bmschmidt/colorbar/blob/master/colorbar.js" target="_blank">This GitHub repo.</a>
-          Note that this file was downloaded and modified for this project.  It can be found in the js directory
-          </p>
-          <p>GeoJSON: <a href ="https://bitbucket.org/john2x/d3test/raw/2ce4dd5112448088fe357b8179d1088ef19524b8/d3/examples/data" target="_blank">us_states.json</a>
-          Note that this file was downloaded and is available in the data directory of the repo.</p>
-        </div>
-    </div>
-  </div>
-<!--</div>-->
+      <div class="col-xs-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="#Project" data-toggle="tab">Project</a></li>
+          <li><a href="#Design" data-toggle="tab">Design</a></li>
+          <li><a href="#Data" data-toggle="tab">Data</a></li>
+          <li><a href="#Feedback" data-toggle="tab">Feedback</a></li>
+          <li><a href="#Sources" data-toggle="tab">Sources</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-9">
+        <div class="tab-content clearfix">
+  	        <div class="tab-pane active" id="Project">
+              <h1 id="ProjectTitle">Udacity Data Analyst Nanodegree Project 6: Data Visualization</h1>
+              <h4>Overview:</h4>
+              <p id="ProjOverview">
+                Utilizing d3.js, create a data visualization from a data set that tells a story or highlights trends in the data.
+              </p>
+              <br>
+              <h4>Summary:</h4>
+              <p id="summary">
+                For this project, I chose to create a data visualization of Airline
+                On-Time Statistics and Delay Causes (see Sources for link).  Using the available
+                Total Flights and Delayed Flights statistics for each airport, a Percent Delayed field
+                was created in the data so that airports can be compared by the percentage of the delayed
+                flights they have.
+              </p>
+              <br>
+              <h4>Observed Trends:</h4>
+              <p id="trends">
+                A large trend visible in the animation is the rise of flight delays across most airports
+                up until 2002, and then another trend in rising delays until 2008.  These two years are
+                significant; 2002 followed just three months after the 9/11 terrorist attack where hijackers
+                took over 4 planes in the Mid-Atlantic, and 2008 was the beginning of the Great Recession.<br><br>
+                Another visible trend in the data is that as new airports (airports not present in previous years)
+                start to appear, their delays start to follow the rise in delays seen in the existing airports.
+                This could be due to the decrease in direct flights, which causes flights to lay-over at other
+                airports where connections are (hopefully) made for the final destination.
+              </p>
+            </div>
+            <div class="tab-pane" id="Design">
+              <h4>Design Choices:</h4>
+              <h5>Original Design</h5>
+              <p>
+                The selected data all generates from the United States.  Therefore, I chose a map of only
+                the United States, and used the AlbersUSA projection so that Hawaii and Alaska would appear
+                closer to the continental states.
+              </p>
 
-  <!--<script src="js/flightdataviz.js"></script>-->
+              <p>
+                Airports are designated on the map as circles, since we have the latitude and longitude of
+                the airports.  The size and color of each circle is then mapped to the percent of delayed
+                flights for each airport.
+              </p>
+
+              <p>
+                A colorbar was added to assist viewers in identifying the
+                scale used for delayed flights: the closer to green the lower the percentge of delays,
+                and the closer to red the higher the percentage of delays.
+              </p>
+
+              <p>
+                A barchart was added to the visualization so that the categories of delays could be investigated
+                by users when they click on any airport (this data is only available for years after 2003).
+              </p>
+              <br>
+              <h5>After Review Design</h5>
+              <p>The size of each circle has been changed to map to the ratio of total flights, not delayed flights.
+                 The coloring is still mapped to the percent of delayed flights.
+              </p>
+              <p>The layout was changed so that the bar chart appeared next to the map when a circle was selected.
+                 This was a common review, in that users did not like scrolling up and down to see the map and the chart.
+              </p>
+              <p>The bar chart was modified so that it would clear when years with no categorical data were selected.</p>
+
+            </div>
+            <div class="tab-pane" id="Data">
+              <h4 id="DataSelection">Data Set Selection:</h4>
+              <p id="DataSelectOverview">
+                Airline reported data from 1987 through September 2016 was used in this project.
+                The data for years 1987 - 2008 were already available for download (see Sources),
+                and the remaining years (2009 - 2016) were downloaded from the USDOT Bureau of
+                Transportation Statistics website (see Sources).  These files were downloaded for
+                each month of the remaining years.  Note that webscraping was not utilized for
+                downloading the data, but perhaps could have been a useful tool for this portion
+                of the process.
+              </p>
+              <br>
+              <h4 id="DataWrangling">Data Wrangling:</h4>
+              <p id="DataWrangleOverview">
+                As mentioned, data for the years 1987-2008 were available for download.  These
+                compressed csv files were already sorted by year.  Using the columns from the
+                downloaded files, the remaining years were downloaded from the web interface by month.
+                Once all reamining files were downloaded, they were separated into directories by year, and
+                all months available for a given year were concatenated into one file for that year.
+                This was completed utilizing the pandas library from the Python interpreter.  A python
+                script was created to read in all the available datafiles (available in the repo under Code).
+                This script groups the input files by Flight Origin, and creates counts for the individual
+                delay types and total number of flights and delays for each Origin of every available year.
+                Since the original data had statistics for every airport in the US, the data was filtered to
+                contain only airports whose Total Flights were above the 3rd quartile of Total Flights for
+                that year.  The data also included airports that were not in U.S. states (though they were U.S Territories),
+                so they were also removed from the data to help simplify the map in the visualization.
+                This output was saved to one csv file, and it is available in the repo under data (aggregatedAirportData.csv).
+                Note that due to the size of all data files, the source data was not submitted to the repo.
+              </p>
+            </div>
+            <div class="tab-pane" id="Feedback">
+              <p id="devResponse">Developer responses to feedback in red.</p>
+              <h4 id="viewerFeedback">Reviewer #1:</h4>
+              <p>The animation occurs too fast.</p>
+              <p id="devResponse">Increased the delay between updates.</p>
+              <p>The link to the delay category definitions is not obvious.</p>
+              <p id="devResponse">Changed the link from the entire chart title to only the "Delays by Category".</p>
+              <p> The pop-up dialog indicates no category data prior to 2003, but it is unclear if it was specific to a particular airport or all airports.</p>
+              <p id="devResponse">Changed the dialog to indicate all airports.</p>
+              <br>
+              <h4 id="viewerFeedback">Reviewer #2:</h4>
+              <p>Nothing in visualization provides info on units.  Are these the number flights,
+              number of delays, or what?
+              </p>
+              <p id="devResponse">Added sub-title to indicate that we are looking at the percentage of flights delayed</p>
+              <p>The circle colors (green through red) are kind of faded looking.</p>
+              <p id="devResponse">Changed the opacity of the circles</p>
+              <p>When selecting years before 2003, a pop-up warns "No delay type data for years before 2003."  The graphic still shows the previous data, so there is an inconsistency.</p>
+              <p id="devResponse">Now plotting zeros for years with no data to clear the plot></p>
+              <p>I don't like having to scroll down every time I want to see the breakdown by Delay Category.  I would prefer to see a smaller graphic next to the map></p>
+              <p id="devResponse">Changed size of graphs, and made them responsive to the page size.</p>
+              <br>
+              <h4 id="viewerFeedback">Reviewer #3:</h4>
+              <p>The link to the delay category definitions is not obvious.</p>
+              <p id="devResponse">Changed the link from the entire chart title to only the "Delays by Category".</p>
+              <p> It would be nice to zoom into the map in areas where airports exist in close proximity to another.</p>
+              <br>
+              <h4 id="viewerFeedback">Reviewer #4:</h4>
+              <p>It may be useful to know the total number of flights for each airport.</p>
+              <p id="devResponse">Added the total number of flights to mouse hover dialog.</p>
+              <p>For data before 2003, the plot should clear since no data is available for delay categories.</p>
+              <p id="devResponse">Now plotting zeros for years with no data to clear the plot.</p>
+              <br>
+              <h4 id="viewerFeedback">Reviewer #5:</h4>
+              <p>It would be nice if the page was responsive so that it could be viewed on multiple devices.</p>
+              <p id="devResponse">Changed the SVG's to be responsive to page size.</p>
+              <br>
+              <h4 id="viewerFeedback">Reviewer #6:</h4>
+              <p>The animation displays data over time, and the static chart displays the delay data for airports for one year.  It would be nice to show the data for the selected airport over all years.</p>
+              <p id="devResponse">Added a line chart to include total flights and delayed flights for all years of the selected airport.</p>
+              <p>It would be nice if the circle size was related to the total flights and not the delayed flights></p>
+              <p id="devResponse">Changed the radius of circles to look at total flights instead of delayed flights</p>
+              <br>
+            </div>
+            <div class="tab-pane" id="Sources">
+              <h4>References Used:</h4>
+              <p>Bar Chart: <a href="http://alignedleft.com/tutorials/d3/making-a-bar-chart" target="_blank">Scott Murray - Making a bar chart.</a>
+              </p>
+              <p>Tooltips on mouse hover: <a href="http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922" target="_blank">Michelle Chandra</a></p>
+              <p>Responsive SVG's: <a href="http://eyeseast.github.io/visible-data/2013/08/26/responsive-d3" target="_blank">Visible Data</a></p>
+              <br>
+              <h4>Data Sources:</h4>
+              <p>Data for years 1987 - 2008: <a href="http://stat-computing.org/dataexpo/2009/the-data.html" target="_blank">American Statistical Association</a></p>
+              <p>Data for years 2009 - 2016: <a href="http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236&DB_Short_Name=On-Time" target="_blank">USDOT Bureau of Transportation Statistics</a></p>
+              <br>
+              <h4>Code Sources:</h4>
+              <p>Colorbar: <a href="https://github.com/bmschmidt/colorbar/blob/master/colorbar.js" target="_blank">This GitHub repo.</a>
+              Note that this file was downloaded and modified for this project.  It can be found in the js directory
+              </p>
+              <p>GeoJSON: <a href ="https://bitbucket.org/john2x/d3test/raw/2ce4dd5112448088fe357b8179d1088ef19524b8/d3/examples/data" target="_blank">us_states.json</a>
+              Note that this file was downloaded and is available in the data directory of the repo.</p>
+              <p>Legend: <a href ="http://bl.ocks.org/ZJONSSON/3918369" target="_blank">Code from Ziggy Jonnson</a>
+                Note that this file was downloaded and is available in the js directory for this project.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
