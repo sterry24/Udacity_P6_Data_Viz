@@ -73,7 +73,7 @@ function Colorbar() {
                 .classed("pointer",true)
                 .classed("axis",true)
                 .attr('d', pointerSVGdef())
-                .attr("fill","darkblue")
+                .attr("fill","white")
                 .attr("opacity","0");
 
             //whether it's new or not, it updates it.

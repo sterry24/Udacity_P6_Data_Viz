@@ -39,7 +39,7 @@
                    .enter()
                    .append('path')
                    .attr('d', path)
-                   .style('fill', 'slategray')
+                   .style('fill', 'gainsboro')
                    .style('stroke', 'black')
                    .style('stroke-width', 0.5);
 
@@ -214,8 +214,8 @@
                .attr("class","line")
                .attr("d", tLine(tFlights))
                .attr("data-legend",function(d) { return "Total Flights"})
-               .attr("data-legend-color","green")
-               .style("stroke","green")
+               .attr("data-legend-color","darkblue")
+               .style("stroke","darkblue")
                .style("stroke-width",2);
             // add the delayed flights line to the svg
             svg.append("path")
@@ -318,7 +318,7 @@
           // create a scale for colors
           var colorFill = d3.scale.linear()
           					.domain([minDelay,maxDelay])
-          					.range(["lawngreen", "red"]);
+          					.range(["lightblue", "darkblue"]);
 
           // create opacity levels
           var opacityFill = d3.scale.linear()
@@ -347,7 +347,7 @@
                return colorFill(d["values"][0]["PercentDelayed"]);
              })
              .attr("opacity",function(d){
-               return opacityFill(d["values"][0]["Total_Flts"]);
+               return opacityFill(d["values"][0]["PercentDelayed"]);
              })
 
           // add a colorbar so that we have a scale for the circle colors
